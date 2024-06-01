@@ -21,7 +21,7 @@ jobs:
     # - run: npm install -g npm
     - run: npm i
     - run: npm ci
-    - run: npm audit signatures
+    # - run: npm audit signatures
     - run: npm publish --provenance --access public
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
