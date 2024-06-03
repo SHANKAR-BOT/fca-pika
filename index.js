@@ -466,7 +466,12 @@ module.exports = function(loginData, options, callback) {
                     } 
                 }
             }
-        return login(loginData, options, callback);
+        // return login(loginData, options, callback);
+        try {
+            login(loginData, options, callback);
+        } catch (e) {
+            console.log(e)
+        }
     }).catch(function(err) {
         console.log(err)
             log.error("[ FCA-UPDATE ] ➣", Language.UnableToConnect);
