@@ -393,10 +393,10 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
         if (region && mqttEndpoint) {
             //do sth
         }
-        else {
-            log.warn("login", getText(Language.NoAreaData));
-            api["htmlData"] = html;
-        }
+        // else {
+        //     log.warn("login", getText(Language.NoAreaData));
+        //     api["htmlData"] = html;
+        // }
         if (bypass_region) {
             logger.Normal(Language.NoAreaDataBypass);
         } else {
