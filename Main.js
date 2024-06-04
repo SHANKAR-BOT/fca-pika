@@ -392,7 +392,7 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
 
         if (region && mqttEndpoint) {
             //do sth
-        }
+        } else {
         // else {
         //     log.warn("login", getText(Language.NoAreaData));
         //     api["htmlData"] = html;
@@ -403,6 +403,7 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
             log.warn("login", getText(Language.NoAreaData));
             api["htmlData"] = html;
         }
+    }
 
         var defaultFuncs = utils.makeDefaults(html, userID, ctx);
 
