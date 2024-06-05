@@ -4,11 +4,10 @@
 var utils = require("../utils");
 var log = require("npmlog");
 
-
 module.exports = function (defaultFuncs, api, ctx) {
     return function getUserInfoV4(id, callback) {
-        var resolveFunc = function () { };
-        var rejectFunc = function () { };
+        var resolveFunc = function () {};
+        var rejectFunc = function () {};
         var returnPromise = new Promise(function (resolve, reject) {
             resolveFunc = resolve;
             rejectFunc = reject;
@@ -33,7 +32,7 @@ module.exports = function (defaultFuncs, api, ctx) {
         doc_id: 7188178894556645
     };
     console.log(form);
-try {
+    try {
         defaultFuncs
             .post("https://www.facebook.com/api/graphql/", ctx.jar, form)
             .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
@@ -43,7 +42,7 @@ try {
             })
             .catch(function (err) {
                 console.log(err);
-                log.error("getUserInfo", "Lỗi: getUserInfo Có Thể Do Bạn Spam Quá Nhiều !,Hãy Thử Lại !");
+                log.error("getUserInfo", "Lỗi: getUserInfo Có Thể Do Bạn Spam Quá Nhiều !, Hãy Thử Lại !");
                 return callback(err);
             });
     }

@@ -5,8 +5,8 @@ var log = require("npmlog");
 
 module.exports = function(defaultFuncs, api, ctx) {
   return function httpPostFormData(url, form, callback) {
-    var resolveFunc = function(){};
-    var rejectFunc = function(){};
+    var resolveFunc = function() {};
+    var rejectFunc = function() {};
 
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
@@ -35,7 +35,6 @@ module.exports = function(defaultFuncs, api, ctx) {
         log.error("httpPostFormData", err);
         return callback(err);
       });
-
     return returnPromise;
   };
 };

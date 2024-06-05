@@ -110,7 +110,7 @@ class MemoryManager extends EventEmitter {
   }
 
   logMemoryUsage(memoryUsage) {
-    const timestamp = new Date().toLocaleString("vi-vn", {timeZone: "Asia/Ho_Chi_Minh"});
+    const timestamp = new Date().toLocaleString("vi-vn", { timeZone: "Asia/Ho_Chi_Minh" });
     const logMessage = `${timestamp} - Memory usage: ${(memoryUsage * 100).toFixed(2)}%`;
 
     switch (this.logLevel) {

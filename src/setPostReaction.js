@@ -20,8 +20,8 @@
  
  module.exports = function(defaultFuncs, api, ctx) {
    return function setPostReaction(postID, type, callback) {
-     var resolveFunc = function(){};
-     var rejectFunc = function(){};
+     var resolveFunc = function() {};
+     var rejectFunc = function() {};
      var returnPromise = new Promise(function (resolve, reject) {
        resolveFunc = resolve;
        rejectFunc = reject;
@@ -96,7 +96,6 @@
          log.error("setPostReaction", err);
          return callback(err);
        });
- 
      return returnPromise;
    };
  };

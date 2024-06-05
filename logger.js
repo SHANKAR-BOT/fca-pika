@@ -18,7 +18,7 @@ function getType(obj) {
 module.exports = {
 	Normal: function(/** @type {string} */ Str, /** @type {() => any} */ Data ,/** @type {() => void} */ Callback) {
 		if (isHexcolor(global.Fca.Require.FastConfig.MainColor) != true) {
-			this.Warning(getText(global.Fca.Require.Language.Index.InvaildMainColor,global.Fca.Require.FastConfig.MainColor),process.exit(0));
+			this.Warning(getText(global.Fca.Require.Language.Index.InvaildMainColor, global.Fca.Require.FastConfig.MainColor), process.exit(0));
 		}
 		else console.log(chalk.hex(global.Fca.Require.FastConfig.MainColor).bold(`${global.Fca.Require.FastConfig.MainName || '[ META-HZI ]'} ➣ `) + Str);
 		if (getType(Data) == 'Function' || getType(Data) == 'AsyncFunction') {

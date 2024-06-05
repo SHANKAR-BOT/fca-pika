@@ -5,8 +5,8 @@ var utils = require("../utils");
 
 module.exports = function (defaultFuncs, api, ctx) {
 	return function(text, threadID, messageID ,callback) {
-		var resolveFunc = function () { };
-		var rejectFunc = function () { };
+		var resolveFunc = function () {};
+		var rejectFunc = function () {};
 
 		var returnPromise = new Promise(function (resolve, reject) {
 			resolveFunc = resolve;
@@ -65,7 +65,6 @@ module.exports = function (defaultFuncs, api, ctx) {
             callback,
             type: "sendMqttMessage"
         });
-
 		return returnPromise;
 	};
 };

@@ -24,7 +24,7 @@ module.exports = function() {
                         logger.Normal(global.Fca.Require.Language.ExtraUpTime.Uptime);//
                         return setInterval(function() {
                             Fetch.get(`https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`);
-                        },10*1000);
+                        }, 10 * 1000);
                     }
                 else return;
             }

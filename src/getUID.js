@@ -3,8 +3,8 @@
 
 module.exports = function (_defaultFuncs, api, _ctx) {
     return function getUID(link, callback) {
-      var resolveFunc = function () { };
-      var rejectFunc = function () { };
+      var resolveFunc = function () {};
+      var rejectFunc = function () {};
       var returnPromise = new Promise(function (resolve, reject) {
         resolveFunc = resolve;
         rejectFunc = reject;
@@ -24,31 +24,31 @@ module.exports = function (_defaultFuncs, api, _ctx) {
             var LinkSplit = Link.split('/');
             if (LinkSplit.indexOf("https:") == 0) {
               if (!isNaN(LinkSplit[3]) && !Link.split('=')[1]  && !isNaN(Link.split('=')[1])) {
-                api.sendMessage('Sai Link, Link Cần Có Định Dạng Như Sau: facebook.com/Lazic.Kanzu',global.Fca.Data.event.threadID,global.Fca.Data.event.messageID);
+                api.sendMessage('Sai Link, Link Cần Có Định Dạng Như Sau: facebook.com/kemsadboiz', global.Fca.Data.event.threadID, global.Fca.Data.event.messageID);
                 callback(null, String(4));
               }
               else if (!isNaN(Link.split('=')[1]) && Link.split('=')[1]) {
                 var Format = `https://www.facebook.com/profile.php?id=${Link.split('=')[1]}`;
-                FindUID(Format,api).then(function (data) {
+                FindUID(Format, api).then(function (data) {
                   callback(null, data);
                 });
               } 
               else {
-                FindUID(Link,api).then(function (data) {
+                FindUID(Link, api).then(function (data) {
                   callback(null, data);
                 });
               }
             }
             else {
                 var Form = `https://www.facebook.com/${LinkSplit[1]}`;
-                FindUID(Form,api).then(function (data) {
+                FindUID(Form, api).then(function (data) {
                     callback(null, data);
                 });
             }
         }
         else {
             callback(null, null);
-            api.sendMessage('Sai Link, Link Cần Là Link Của Facebook',global.Fca.Data.event.threadID,global.Fca.Data.event.messageID);
+            api.sendMessage('Sai Link, Link Cần Là Link Của Facebook', global.Fca.Data.event.threadID, global.Fca.Data.event.messageID);
         }
     }
     catch (e) {

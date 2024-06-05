@@ -93,8 +93,8 @@ const disableAnimations = () => {
 };
 
 const getBoundingClientRect = element => {
-	const {top, left, height, width, x, y} = element.getBoundingClientRect();
-	return {top, left, height, width, x, y};
+	const { top, left, height, width, x, y } = element.getBoundingClientRect();
+	return { top, left, height, width, x, y };
 };
 
 const parseCookie = (url, cookie) => {
@@ -102,7 +102,7 @@ const parseCookie = (url, cookie) => {
 		return cookie;
 	}
 
-	const jar = new toughCookie.CookieJar(undefined, {rejectPublicSuffixes: false});
+	const jar = new toughCookie.CookieJar(undefined, { rejectPublicSuffixes: false });
 	jar.setCookieSync(cookie, url);
 	const returnValue = jar.serializeSync().cookies[0];
 
@@ -116,7 +116,6 @@ const parseCookie = (url, cookie) => {
 	if (returnValue.expires) {
 		returnValue.expires = Math.floor(new Date(returnValue.expires) / 1000);
 	}
-
 	return returnValue;
 };
 
@@ -337,7 +336,7 @@ const captureWebsite = async (input, options) => {
 		const viewportHeight = viewportOptions.height;
 		let viewportIncrement = 0;
 		while (viewportIncrement + viewportHeight < bodyBoundingHeight) {
-			const navigationPromise = page.waitForNavigation({waitUntil: 'networkidle0'});
+			const navigationPromise = page.waitForNavigation({ waitUntil: 'networkidle0' });
 			/* eslint-disable no-await-in-loop */
 			await page.evaluate(_viewportHeight => {
 				/* eslint-disable no-undef */
@@ -357,7 +356,7 @@ const captureWebsite = async (input, options) => {
 		});
 
 		// Some extra delay to let images load
-		await page.waitForFunction(imagesHaveLoaded, {timeout: timeoutInSeconds});
+		await page.waitForFunction(imagesHaveLoaded, { timeout: timeoutInSeconds });
 	}
 
 	if (options.inset && !screenshotOptions.fullPage) {
@@ -393,8 +392,7 @@ const captureWebsite = async (input, options) => {
 
 			throw new Error('When using the `clip` option, the width or height of the screenshot cannot be equal to 0.');
 		}
-
-		screenshotOptions.clip = {x, y, width, height};
+		screenshotOptions.clip = { x, y, width, height };
 	}
 
 	const buffer = await page.screenshot(screenshotOptions);
@@ -404,7 +402,6 @@ const captureWebsite = async (input, options) => {
 	if (!options._keepAlive) {
 		await browser.close();
 	}
-
 	return buffer;
 };
 

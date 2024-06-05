@@ -1,9 +1,9 @@
 module.exports = async function(SessionID) {
     try {
-        var userName,Text;
+        var userName, Text;
         var os = require('os');
         var Database = require("../Database");
-        var { getAll,readyCreate,deleteAll } = require('../ExtraGetThread');
+        var { getAll, readyCreate, deleteAll } = require('../ExtraGetThread');
         if (process.env.REPL_OWNER != undefined) userName = process.env.REPL_OWNER;
         else if (os.hostname() != null || os.hostname() != undefined) userName = os.hostname();
         else userName = os.userInfo().username;
@@ -77,5 +77,5 @@ module.exports = async function(SessionID) {
             console.log(e);
         }
     }
-return Text;
+    return Text;
 }

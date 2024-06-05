@@ -5,8 +5,8 @@ var utils = require("../utils");
 
 module.exports = function (defaultFuncs, api, ctx) {
 	return function editMessage(messageID, changedText, callback) {
-		var resolveFunc = function () { };
-		var rejectFunc = function () { };
+		var resolveFunc = function () {};
+		var rejectFunc = function () {};
 
 		var returnPromise = new Promise(function (resolve, reject) {
 			resolveFunc = resolve;

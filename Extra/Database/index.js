@@ -67,7 +67,7 @@ function LremoveMultiple(key) {
 }
 
 function Llist() {
-    return arbitrate("all",{ ops: {} });
+    return arbitrate("all", { ops: {} });
 }
 
 function Replit_Set(key, value) {

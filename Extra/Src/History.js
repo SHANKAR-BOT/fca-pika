@@ -46,7 +46,7 @@ console._intercept = function(type, data, args) {
     // function in your own script, and add the line below to the end or
     // begin of your own 'console._intercept' function.
     // REMEMBER: Use only underscore console commands inside _intercept!
-    console._collect(type, data,args)
+    console._collect(type, data, args)
 }
 
 /* Define the main log catcher. */

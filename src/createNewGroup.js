@@ -14,8 +14,8 @@ module.exports = function (defaultFuncs, api, ctx) {
 
     if (participantIDs.length < 2) throw { error: "createNewGroup: participantIDs should have at least 2 IDs." };
 
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -64,7 +64,6 @@ module.exports = function (defaultFuncs, api, ctx) {
         log.error("createNewGroup", err);
         return callback(err);
       });
-
     return returnPromise;
   };
 };

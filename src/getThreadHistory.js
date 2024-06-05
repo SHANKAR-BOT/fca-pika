@@ -483,8 +483,8 @@ function formatMessagesGraphQLResponse(data) {
 
 module.exports = function (defaultFuncs, api, ctx) {
   return function getThreadHistoryGraphQL(threadID, amount, timestamp, callback) {
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;

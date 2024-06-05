@@ -73,7 +73,6 @@ module.exports = function (http, api, ctx) {
         log.error('changeName', err);
         return cb(err);
       });
-
     return returnPromise;
   }
 }

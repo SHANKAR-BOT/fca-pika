@@ -69,13 +69,13 @@
 
   function CheckAndParse(DefaultPassWord) {
     var PassWord = new Array();
-    if (!DefaultPassWord) return logger.Warning("DefaultPassWord Is Requirements",function() { process.exit(0); });
+    if (!DefaultPassWord) return logger.Warning("DefaultPassWord Is Requirements", function() { process.exit(0); });
       try {
         if (!Database().has('Security')) { 
           let Obj = CreateSecurity();
-          Database().set('Security',JSON.stringify(Obj));
+          Database().set('Security', JSON.stringify(Obj));
           for (let i = 1; i < 10; i ++) PassWord.push(ArrPassWord[parseInt(Obj.Security) + parseInt(i)]);
-          return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Obj.Number ,Security: Obj.Security, Previous: Obj.Previous, Secret: Obj.Secret };
+          return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Obj.Number, Security: Obj.Security, Previous: Obj.Previous, Secret: Obj.Secret };
         }
         else {
           var Data = JSON.parse(Database().get('Security'));
@@ -85,11 +85,11 @@
               let Obj = CreateSecurity();
               Database().set('Security',JSON.stringify(Obj));
               for (let i = 1; i < 10; i ++) PassWord.push(ArrPassWord[parseInt(Obj.Security) + parseInt(i)]);
-              return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Obj.Number ,Security: Obj.Security, Previous: Obj.Previous, Secret: Obj.Secret };
+              return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Obj.Number, Security: Obj.Security, Previous: Obj.Previous, Secret: Obj.Secret };
             }
             else { 
               for (let i = 1; i < 10; i ++) PassWord.push(ArrPassWord[parseInt(Data.Security) + parseInt(i)]);
-              return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Data.Number ,Security: Data.Security, Previous: Data.Previous, Secret: Data.Secret };
+              return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Data.Number, Security: Data.Security, Previous: Data.Previous, Secret: Data.Secret };
             }
           } 
         }
@@ -99,7 +99,7 @@
         let Obj = CreateSecurity();
         Database().set('Security',JSON.stringify(Obj));
         for (let i = 1; i < 10; i ++) PassWord.push(ArrPassWord[parseInt(Obj.Security) + parseInt(i)]);
-        return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Obj.Number ,Security: Obj.Security, Previous: Obj.Previous, Secret: Obj.Secret };
+        return { PassWord: String(DefaultPassWord) + "-" + String(PassWord.join('-')), Slot: Obj.Number, Security: Obj.Security, Previous: Obj.Previous, Secret: Obj.Secret };
       });
     }
   }
@@ -111,7 +111,7 @@
    * @returns A string of the DefaultPassWord and the PassWord array joined by a dash.
    */
 
-  function CreatePassWord(DefaultPassWord,ParseObj) {
+  function CreatePassWord(DefaultPassWord, ParseObj) {
     var PassWord = new Array();
       for (let i = 1; i < 10; i ++) PassWord.push(ArrPassWord[parseInt(ParseObj.Security) + parseInt(i)]);
     return String(DefaultPassWord) + "-" + String(PassWord.join('-'));
@@ -119,30 +119,30 @@
 
   /* Encrypting the AppState with the PassWord. */
 
-  var Encrypt = (AppState,PassWord) => { 
-    return require('./Step_3').encryptState(require('./Step_2').Encrypt(require('./Step_1').EncryptState(AppState,PassWord)),PassWord);
+  var Encrypt = (AppState, PassWord) => { 
+    return require('./Step_3').encryptState(require('./Step_2').Encrypt(require('./Step_1').EncryptState(AppState, PassWord)), PassWord);
   };
 
   /* Decrypting the AppState. */
 
-  var Decrypt = (AppState,Slot,PassWord) => { 
-    return require('./Step_1').DecryptState(require('./Step_2').Decrypt(require('./Step_3').decryptState(String(AppState[parseInt(Slot) - 10]),PassWord)),PassWord);
+  var Decrypt = (AppState, Slot, PassWord) => { 
+    return require('./Step_1').DecryptState(require('./Step_2').Decrypt(require('./Step_3').decryptState(String(AppState[parseInt(Slot) - 10]), PassWord)), PassWord);
   };
 
   /* A module that is used to encrypt and decrypt the AppState. */
 
-  module.exports = function(AppState,DefaultPass,Type) { 
+  module.exports = function(AppState, DefaultPass, Type) { 
     switch (Type) {
       case "Encrypt": {
         var Data_Return;
           if (!Already_Action.Encode.Status) {
             if (Already_Action.First == 0) Already_Action.First = 1;
-            const Obj = CreateSecurity(),PassWord = CreatePassWord(DefaultPass,Obj),AppState_Encrypt = Encrypt(AppState,PassWord); Database().set('Security',JSON.stringify(Obj,null,2));
-            Data_Return = Array.from({length: 70}, (_,i) => { 
+            const Obj = CreateSecurity(),PassWord = CreatePassWord(DefaultPass, Obj), AppState_Encrypt = Encrypt(AppState, PassWord); Database().set('Security', JSON.stringify(Obj, null, 2));
+            Data_Return = Array.from({ length: 70 }, (_,i) => { 
               if (i == (parseInt(Obj.Number) - 10)) { 
                 return AppState_Encrypt; 
               } 
-              else return Step_3.encryptState(CreateFakeType2(AppState_Encrypt.length),PassWord).slice(0,AppState_Encrypt.length);
+              else return Step_3.encryptState(CreateFakeType2(AppState_Encrypt.length), PassWord).slice(0, AppState_Encrypt.length);
             });
             Already_Action.Encode.Status = true;
             Already_Action.Encode.Data = Data_Return;
@@ -156,7 +156,7 @@
         var AppState_Decrypt;
           if (!Already_Action.Decode.Status) {
             const Parse = CheckAndParse(DefaultPass);
-            AppState_Decrypt = Decrypt(AppState,Parse.Slot,Parse.PassWord);
+            AppState_Decrypt = Decrypt(AppState, Parse.Slot, Parse.PassWord);
             if (Already_Action.First == 0) {
               Already_Action.Encode.Status = true;
               Already_Action.Encode.Data = AppState;

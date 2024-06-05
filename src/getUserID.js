@@ -19,8 +19,8 @@ function formatData(data) {
 
 module.exports = function (defaultFuncs, api, ctx) {
   return function getUserID(name, callback) {
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -56,7 +56,6 @@ module.exports = function (defaultFuncs, api, ctx) {
         log.error("getUserID", err);
         return callback(err);
       });
-
     return returnPromise;
   };
 };

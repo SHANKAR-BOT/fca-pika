@@ -37,8 +37,8 @@ module.exports = function (defaultFuncs, api, ctx) {
   return function changeGroupImage(image, threadID, callback) {
     if (!callback && (utils.getType(threadID) === "Function" || utils.getType(threadID) === "AsyncFunction")) throw { error: "please pass a threadID as a second argument." };
 
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -100,7 +100,6 @@ module.exports = function (defaultFuncs, api, ctx) {
           return callback(err);
         });
     });
-
     return returnPromise;
   };
 };

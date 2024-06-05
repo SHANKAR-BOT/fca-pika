@@ -2,10 +2,10 @@
 const { execSync } = require('child_process');
 var utils = require("../utils");
 var log = require("../logger");
-var Object = ['png','json','wav','mp3','mp4','jpg','txt','gif','tff','m4a'];
-var Recommend = ['png','wav','mp3','mp4','jpg','m4a'];
+var Object = ['png', 'json', 'wav', 'mp3', 'mp4', 'jpg', 'txt', 'gif', 'tff', 'm4a'];
+var Recommend = ['png', 'wav', 'mp3', 'mp4', 'jpg', 'm4a'];
 module.exports = function (defaultFuncs, api, ctx) {
-    return function (Args,callback) {
+    return function (Args, callback) {
         let New1 = [];
         if (!Args.New || utils.getType(Args.New) !== "Array") { 
             New1 = Recommend;

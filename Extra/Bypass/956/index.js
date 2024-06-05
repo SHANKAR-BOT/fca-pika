@@ -12,7 +12,6 @@ function Find_And_Parse(Data) {
 
     }
     
-    
     function findAnyEligibleChallengesAndSiblings(data) {
         const screenData = findScreenData(data);
         if (!screenData) {
@@ -28,7 +27,6 @@ function Find_And_Parse(Data) {
                 siblings[key] = value;
             }
         }
-    
         return siblings;
     }
     

@@ -46,7 +46,6 @@ module.exports = function (http, api, ctx) {
         log.error('searchStickers', err);
         return cb(err);
       });
-
     return returnPromise;
   }
 }

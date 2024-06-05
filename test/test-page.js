@@ -23,7 +23,7 @@ var userID = conf.user.id;
 var groupChatID;
 var groupChatName;
 
-function checkErr(done){
+function checkErr(done) {
   return function(err) {
     if (err) done(err);
   };

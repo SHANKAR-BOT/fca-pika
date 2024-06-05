@@ -153,8 +153,8 @@ module.exports = function (defaultFuncs, api, ctx) {
     if (utils.getType(tags) === "String") tags = [tags];
     if (utils.getType(tags) !== "Array") throw { error: "getThreadList: tags must be an array" };
 
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;

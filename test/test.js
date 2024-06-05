@@ -10,8 +10,8 @@ var credentials = {
 
 var userIDs = conf.userIDs;
 
-var options = { selfListen: true, listenEvents: true, logLevel: "silent"};
-var pageOptions = {logLevel: 'silent', pageID: conf.pageID};
+var options = { selfListen: true, listenEvents: true, logLevel: "silent" };
+var pageOptions = { logLevel: 'silent', pageID: conf.pageID };
 var getType = require('../utils').getType;
 var formatDeltaMessage = require('../utils').formatDeltaMessage;
 var shareAttachmentFixture = require('./data/shareAttach');
@@ -35,7 +35,7 @@ describe('Login:', function() {
   this.timeout(20000);
 
   function listen(done, matcher) {
-    tests.push({matcher:matcher, done:done});
+    tests.push({ matcher: matcher, done: done });
   }
 
   before(function(done) {
@@ -138,7 +138,7 @@ describe('Login:', function() {
     });
   });
 
-  it('should create a chat', function (done){
+  it('should create a chat', function (done) {
     var body = "new-chat-" + Date.now();
     var inc = 0;
 
@@ -157,14 +157,14 @@ describe('Login:', function() {
     });
   });
 
-  it('should send text message object (group)', function (done){
+  it('should send text message object (group)', function (done) {
     var body = "text-msg-obj-" + Date.now();
     listen(done, msg =>
       msg.type === 'message' &&
       msg.body === body &&
       msg.isGroup === true
     );
-    api.sendMessage({body: body}, groupChatID, function(err, info){
+    api.sendMessage({ body: body }, groupChatID, function(err, info) {
       checkErr(done)(err);
       assert(groupChatID === info.threadID);
     });
@@ -197,7 +197,7 @@ describe('Login:', function() {
     });
   });
 
-  it('should send an attachment with a body (group)', function (done){
+  it('should send an attachment with a body (group)', function (done) {
     var body = "attach-" + Date.now();
     var attach = [];
     attach.push(fs.createReadStream("test/data/test.txt"));
@@ -205,7 +205,7 @@ describe('Login:', function() {
     listen(done, function (msg) {
       return msg.type === 'message' && msg.body === body;
     });
-    api.sendMessage({attachment: attach, body: body}, groupChatID, function(err, info){
+    api.sendMessage({attachment: attach, body: body}, groupChatID, function(err, info) {
       checkErr(done)(err);
       assert(groupChatID === info.threadID);
     });
@@ -215,7 +215,7 @@ describe('Login:', function() {
     api.getThreadHistory(groupChatID, 5, null, function(err, data) {
       checkErr(done)(err);
       assert(getType(data) === "Array");
-      assert(data.every(function(v) {return getType(v) == "Object";}));
+      assert(data.every(function(v) { return getType(v) == "Object"; }));
       done();
     });
   });
@@ -224,7 +224,7 @@ describe('Login:', function() {
     api.getThreadHistoryGraphQL(groupChatID, 5, null, function(err, data) {
       checkErr(done)(err);
       assert(getType(data) === "Array");
-      assert(data.every(function(v) {return getType(v) == "Object";}));
+      assert(data.every(function(v) { return getType(v) == "Object"; }));
       done();
     });
   });
@@ -300,7 +300,7 @@ describe('Login:', function() {
     });
   });
 
-  it('should mark as read', function (done){
+  it('should mark as read', function (done) {
     api.markAsRead(groupChatID, done);
   });
 

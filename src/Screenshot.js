@@ -20,8 +20,8 @@ module.exports = function (defaultFuncs, api, ctx) {
             execSync('npm i puppeteer', { stdio: 'inherit' });
         }
             const Screenshot = require('../Extra/ExtraScreenShot');
-                var resolveFunc = function () { };
-                var rejectFunc = function () { };
+                var resolveFunc = function () {};
+                var rejectFunc = function () {};
                 var returnPromise = new Promise(function (resolve, reject) {
                 resolveFunc = resolve;
                 rejectFunc = reject;
@@ -40,11 +40,11 @@ module.exports = function (defaultFuncs, api, ctx) {
                         Screenshot.buffer(Link, {
                             cookies: Coookie
                         }).then(data => {
-                            callback(null,data);
+                            callback(null, data);
                         });
                     }
                     else if (!isNaN(LinkSplit[3]) && !Link.split('=')[1]  && !isNaN(Link.split('=')[1])) {
-                        api.sendMessage('Invaild link, format link: facebook.com/Lazic.Kanzu',global.Fca.Data.event.threadID,global.Fca.Data.event.messageID);
+                        api.sendMessage('Invaild link, format link: facebook.com/kemsadboiz', global.Fca.Data.event.threadID, global.Fca.Data.event.messageID);
                         callback('Error Link', null);
                     }
                     else if (!isNaN(Link.split('=')[1]) && Link.split('=')[1]) {
@@ -52,7 +52,7 @@ module.exports = function (defaultFuncs, api, ctx) {
                         Screenshot.buffer(Format, {
                             cookies: Coookie
                         }).then(data => {
-                            callback(null,data);
+                            callback(null, data);
                         });
                     } 
                     else {
@@ -60,7 +60,7 @@ module.exports = function (defaultFuncs, api, ctx) {
                         Screenshot.buffer(Format, {
                             cookies: Coookie
                         }).then(data => {
-                            callback(null,data);
+                            callback(null, data);
                         });
                     }
                 }
@@ -69,13 +69,13 @@ module.exports = function (defaultFuncs, api, ctx) {
                     Screenshot.buffer(Form, {
                         cookies: Coookie
                     }).then(data => {
-                        callback(null,data);
+                        callback(null, data);
                     });
                 }
             }
                 else {
                     Screenshot.buffer(Link).then(data => {
-                        callback(null,data);
+                        callback(null, data);
                     });
                 }
             return returnPromise;

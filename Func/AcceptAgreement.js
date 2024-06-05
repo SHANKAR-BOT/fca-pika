@@ -4,7 +4,7 @@ var utils = require("../utils");
 var log = require("npmlog");
 var database = require('../Extra/Database');
 module.exports = function (defaultFuncs, api, ctx) {
-    return function (args,callback) {
+    return function (args, callback) {
         var resolveFunc = function () { };
         var rejectFunc = function () { };
         var returnPromise = new Promise(function (resolve, reject) {

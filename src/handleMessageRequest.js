@@ -7,8 +7,8 @@ module.exports = function (/** @type {{ post: any; postFormData?: (arg0: string,
   return function handleMessageRequest(/** @type {string | any[]} */ threadID, /** @type {any} */ accept, /** @type {((err: any, data: any) => void) | ((arg0: undefined) => any)} */ callback) {
     if (utils.getType(accept) !== "Boolean") throw { error: "Please pass a boolean as a second argument." };
 
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -43,7 +43,6 @@ module.exports = function (/** @type {{ post: any; postFormData?: (arg0: string,
         log.error("handleMessageRequest", err);
         return callback(err);
       });
-
     return returnPromise;
   };
 };

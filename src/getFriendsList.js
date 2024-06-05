@@ -41,8 +41,8 @@ function formatData(obj) {
 
 module.exports = function (defaultFuncs, api, ctx) {
   return function getFriendsList(callback) {
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -67,7 +67,6 @@ module.exports = function (defaultFuncs, api, ctx) {
         log.error("getFriendsList", "Lỗi getFriendsList Có Thể Do Bạn Spam Quá Nhiều ! Hãy Hạn Chế !");
         return callback(err);
       });
-
     return returnPromise;
   };
 };

@@ -10,7 +10,7 @@ language = language.find(i => i.Language == require(process.cwd() + "/FastConfig
 const Always_True = [];
 if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "json") {
     if (!fs.existsSync(process.cwd() + "/Horizon_Database/Threads.json")) {
-        fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify({}));
+        fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify({}));
     }
 }
 else if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type != "default" && global.Fca.Require.FastConfig.AntiGetInfo.Database_Type != "json") {
@@ -18,15 +18,15 @@ else if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type != "default" &&
     process.exit(0);
 }
 
-exports.createData = function(threadID,threadData) {
+exports.createData = function(threadID, threadData) {
     if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "default") {
         try { 
-            Database(true).set(String(threadID),Object(threadData));
-            logger.Normal(getText(language.CreateDatabaseSuccess,String(threadID)));
+            Database(true).set(String(threadID), Object(threadData));
+            logger.Normal(getText(language.CreateDatabaseSuccess, String(threadID)));
         }
         catch (e) {
             console.log(e);
-            logger.Warning(getText(language.CreateDatabaseFailure,String(threadID))); 
+            logger.Warning(getText(language.CreateDatabaseFailure, String(threadID))); 
         }
     }
     else if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "json") {
@@ -36,29 +36,29 @@ exports.createData = function(threadID,threadData) {
             }
             catch (e) {
                 var data = {};
-                fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data));
+                fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data));
             }
             
             data[String(threadID)] = Object(threadData);
-            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data));
-            logger.Normal(getText(language.CreateDatabaseSuccess,String(threadID)));
+            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data));
+            logger.Normal(getText(language.CreateDatabaseSuccess, String(threadID)));
         }
         catch (e) {
             console.log(e);
-            logger.Warning(getText(language.CreateDatabaseFailure,String(threadID))); 
+            logger.Warning(getText(language.CreateDatabaseFailure, String(threadID))); 
         }
     }
 }
 
-exports.updateData = function(threadID,threadData) {
+exports.updateData = function(threadID, threadData) {
     if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "default") {
         try { 
             Database(true).set(String(threadID),Object(threadData));
-            logger.Normal(getText(language.updateDataSuccess,String(threadID)));
+            logger.Normal(getText(language.updateDataSuccess, String(threadID)));
         }
         catch (e) {
             console.log(e);
-            logger.Warning(getText(language.updateDataFailure,String(threadID))); 
+            logger.Warning(getText(language.updateDataFailure, String(threadID))); 
         }
     }
     else if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "json") {
@@ -68,24 +68,24 @@ exports.updateData = function(threadID,threadData) {
             }
             catch (e) {
                 var data = {};
-                fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data));
+                fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data));
             }
             
             data[String(threadID)] = Object(threadData);
-            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data));
-            logger.Normal(getText(language.updateDataSuccess,String(threadID)));
+            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data));
+            logger.Normal(getText(language.updateDataSuccess, String(threadID)));
         }
         catch (e) {
             console.log(e);
-            logger.Warning(getText(language.updateDataFailure,String(threadID))); 
+            logger.Warning(getText(language.updateDataFailure, String(threadID))); 
         }
     }
 }
 
-exports.updateMessageCount = function(threadID,threadData) {
+exports.updateMessageCount = function(threadID, threadData) {
     if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "default") {
         try { 
-            Database(true).set(String(threadID),Object(threadData));
+            Database(true).set(String(threadID), Object(threadData));
         }
         catch (e) {
             console.log(e);
@@ -98,11 +98,11 @@ exports.updateMessageCount = function(threadID,threadData) {
             }
             catch (e) {
                 var data = {};
-                fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data));
+                fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data));
             }
             
             data[String(threadID)] = Object(threadData);
-            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data));
+            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data));
         }
         catch (e) {
             console.log(e);
@@ -158,7 +158,7 @@ exports.deleteAll = function(data) {
             for (let i of data) {
                 delete data1[String(i)];
             }
-            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data1));
+            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data1));
         }
         catch (e) {
             console.log(e);
@@ -295,15 +295,15 @@ exports.readyCreate = function(Name) {
     }
 }
 
-exports.setLastRun = function(Name,LastRun) {
+exports.setLastRun = function(Name, LastRun) {
     if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "default") {
-        Database(true).set(String(Name),String(lastRun(LastRun)));
+        Database(true).set(String(Name), String(lastRun(LastRun)));
     }
     else if (global.Fca.Require.FastConfig.AntiGetInfo.Database_Type == "json") {
         try {
             var data = require(process.cwd() + "/Horizon_Database/Threads.json");
             data[String(Name)] = String(lastRun(LastRun));
-            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json",JSON.stringify(data));
+            fs.writeFileSync(process.cwd() + "/Horizon_Database/Threads.json", JSON.stringify(data));
         }
         catch (e) {
             console.log(e);

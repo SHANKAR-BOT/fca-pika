@@ -11,8 +11,8 @@ module.exports = function (defaultFuncs, api, ctx) {
       seen_timestamp = Date.now();
     }
 
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -45,7 +45,6 @@ module.exports = function (defaultFuncs, api, ctx) {
 
         return callback(err);
       });
-
     return returnPromise;
   };
 };

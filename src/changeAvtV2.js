@@ -98,7 +98,6 @@ module.exports = function (http, api, ctx) {
         log.error('changeAvaV2', err);
         return cb(err);
       });
-
     return returnPromise;
   }
 }

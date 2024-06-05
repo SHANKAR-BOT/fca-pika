@@ -21,8 +21,8 @@ module.exports = function(defaultFuncs, api, ctx) {
       throw {error: "changeAdminStatus: adminStatus must be a string"};
     }
 
-    var resolveFunc = function(){};
-    var rejectFunc = function(){};
+    var resolveFunc = function() {};
+    var rejectFunc = function() {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -38,7 +38,7 @@ module.exports = function(defaultFuncs, api, ctx) {
     }
 
     if (utils.getType(callback) !== "Function" && utils.getType(callback) !== "AsyncFunction") {
-      throw {error: "changeAdminStatus: callback is not a function"};
+      throw { error: "changeAdminStatus: callback is not a function" };
     }
 
     let form = {
@@ -72,7 +72,6 @@ module.exports = function(defaultFuncs, api, ctx) {
         log.error("changeAdminStatus", err);
         return callback(err);
       });
-      
     return returnPromise;
   };
 };

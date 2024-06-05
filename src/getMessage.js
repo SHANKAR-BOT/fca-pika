@@ -99,6 +99,5 @@ module.exports = function(defaultFuncs, api, ctx) {
       log.error("getMessage", err);
       callback(err);
     });
-
   };
 }; 

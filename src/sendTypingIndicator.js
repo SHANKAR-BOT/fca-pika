@@ -73,7 +73,6 @@ module.exports = function (defaultFuncs, api, ctx) {
         if (cb) log.warn("sendTypingIndicator", "callback is not a function - ignoring.");
         cb = () => { };
       }
-
       makeTypingIndicator(false, threadID, cb, isGroup);
     };
   };

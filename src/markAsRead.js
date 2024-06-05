@@ -11,7 +11,7 @@ module.exports = function (defaultFuncs, api, ctx) {
     }
     if (read == undefined) read = true;
 
-    if (!callback) callback = () => { };
+    if (!callback) callback = () => {};
 
     var form = {};
 

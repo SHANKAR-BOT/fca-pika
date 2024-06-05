@@ -4,14 +4,13 @@
 var utils = require("../utils");
 var log = require("npmlog");
 
-
 module.exports = function (defaultFuncs, api, ctx) {
-    return function getUserInfoV3(id,full, callback) {
+    return function getUserInfoV3(id, full, callback) {
         if (utils.getType(full) !== "Boolean") {
-            throw {error: "getUserInfoV3: full must be a boolean"};
+            throw { error: "getUserInfoV3: full must be a boolean" };
         }
-        var resolveFunc = function () { };
-        var rejectFunc = function () { };
+        var resolveFunc = function () {};
+        var rejectFunc = function () {};
         var returnPromise = new Promise(function (resolve, reject) {
             resolveFunc = resolve;
             rejectFunc = reject;
@@ -33,7 +32,7 @@ var form = {
     }),
     "doc_id": 5092283120862795
 };
-try {
+    try {
         defaultFuncs
             .post("https://www.facebook.com/api/graphql/", ctx.jar, form)
             .then(utils.parseAndCheckLogin(ctx, defaultFuncs))

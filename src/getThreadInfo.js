@@ -177,8 +177,8 @@ module.exports = function(defaultFuncs, api, ctx) {
   var Database = require('../Extra/Database');
   
   return async function getThreadInfoGraphQL(threadID, callback) {
-    var resolveFunc = function(){};
-    var rejectFunc = function(){};
+    var resolveFunc = function() {};
+    var rejectFunc = function() {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;

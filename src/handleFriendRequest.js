@@ -7,8 +7,8 @@ module.exports = function (defaultFuncs, api, ctx) {
   return function handleFriendRequest(userID, accept, callback) {
     if (utils.getType(accept) !== "Boolean") throw { error: "Please pass a boolean as a second argument." };
 
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -40,7 +40,6 @@ module.exports = function (defaultFuncs, api, ctx) {
         log.error("handleFriendRequest", err);
         return callback(err);
       });
-
     return returnPromise;
   };
 };

@@ -9,8 +9,8 @@ module.exports = function (defaultFuncs, api, ctx) {
     if (utils.getType(threadID) !== "Number" && utils.getType(threadID) !== "String") throw { error: "threadID should be of type Number or String and not " + utils.getType(threadID) + "." };
     if (utils.getType(userID) !== "Number" && utils.getType(userID) !== "String") throw { error: "userID should be of type Number or String and not " + utils.getType(userID) + "." };
 
-    var resolveFunc = function () { };
-    var rejectFunc = function () { };
+    var resolveFunc = function () {};
+    var rejectFunc = function () {};
     var returnPromise = new Promise(function (resolve, reject) {
       resolveFunc = resolve;
       rejectFunc = reject;
@@ -43,7 +43,6 @@ module.exports = function (defaultFuncs, api, ctx) {
         log.error("removeUserFromGroup", err);
         return callback(err);
       });
-
     return returnPromise;
   };
 };

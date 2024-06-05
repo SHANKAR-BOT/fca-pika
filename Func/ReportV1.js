@@ -4,7 +4,7 @@ var utils = require("../utils");
 var log = require("npmlog");
 
 module.exports = function (defaultFuncs, api, ctx) {
-    return function (args,callback) {
+    return function (args, callback) {
         if (!args.Link && !args.RealName && !args.Content && !args.Gmail) throw new Error("Link,RealName,Content,Gmail are required");
         if (!args.Link) throw new Error("Điền args.Link vào, api.Premium.ReportV1(Link,RealName,Content,Gmail,Time,callback)");
         if (!args.RealName) throw new Error("Điền RealName vào, api.Premium.ReportV1(Link,RealName,Content,Time,Gmail,callback)");

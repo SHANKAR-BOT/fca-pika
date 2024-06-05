@@ -3,8 +3,8 @@
 
 module.exports = function (defaultFuncs, api, ctx) {
     return function getAccessToken(callback) {
-      var resolveFunc = function () { };
-      var rejectFunc = function () { };
+      var resolveFunc = function () {};
+      var rejectFunc = function () {};
       var returnPromise = new Promise(function (resolve, reject) {
         resolveFunc = resolve;
         rejectFunc = reject;

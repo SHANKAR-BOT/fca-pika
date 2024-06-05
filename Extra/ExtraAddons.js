@@ -4,9 +4,9 @@ var utils = require('../utils');
 var logger = require('../logger')
 var OTP = require('totp-generator');
 
-module.exports.getInfo = async function (id,jar,ctx,defaultFuncs) {
-    var AccessToken = await module.exports.getAccessToken(jar,ctx,defaultFuncs);
-    var { body:Data } = await utils.get(`https://graph.facebook.com/${id}?fields=age_range,picture,cover,name,first_name,email,about,birthday,gender,website,hometown,link,location,quotes,relationship_status,significant_other,username,subscribers.limite(0)&access_token=${AccessToken}`,jar,null,ctx.globalOptions);
+module.exports.getInfo = async function (id, jar, ctx, defaultFuncs) {
+    var AccessToken = await module.exports.getAccessToken(jar, ctx, defaultFuncs);
+    var { body:Data } = await utils.get(`https://graph.facebook.com/${id}?fields=age_range,picture,cover,name,first_name,email,about,birthday,gender,website,hometown,link,location,quotes,relationship_status,significant_other,username,subscribers.limite(0)&access_token=${AccessToken}`, jar, null, ctx.globalOptions);
     var Format = {
         id: JSON.parse(Data).id || "Không Có Dữ Liệu",
         name: JSON.parse(Data).name || "Không Có Dữ Liệu",
@@ -41,7 +41,7 @@ module.exports.getInfo = async function (id,jar,ctx,defaultFuncs) {
  * Author: @KanzuWakazaki
 */
 
-module.exports.getAccessToken = async function (jar, ctx,defaultFuncs) {
+module.exports.getAccessToken = async function (jar, ctx, defaultFuncs) {
     if (global.Fca.Data.AccessToken) {
         return global.Fca.Data.AccessToken;
     }
