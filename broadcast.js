@@ -45,11 +45,21 @@
 const logger = require('./logger');
 const Fetch = require('got');
 
+/**
+ * Configuration for broadcasting messages.
+ * @typedef {Object} broadcastConfig
+ * @property {boolean} enabled - Indicates if broadcasting is enabled.
+ * @property {string[]} data - Array of messages to be broadcasted.
+ */
 const broadcastConfig = {
   enabled: false,
   data: [],
 };
 
+/**
+ * Fetches broadcast data from a remote JSON file.
+ * @returns {Promise<string[]>} - Promise that resolves to an array of messages.
+ */
 const fetchBroadcastData = async () => {
   try {
     const response = await Fetch.get('https://raw.githubusercontent.com/JustKemForFun/Global_MetaHorizon/main/Fca_BroadCast.json');

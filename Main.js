@@ -393,10 +393,6 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
         if (region && mqttEndpoint) {
             //do sth
         } else {
-        // else {
-        //     log.warn("login", getText(Language.NoAreaData));
-        //     api["htmlData"] = html;
-        // }
         if (bypass_region) {
             logger.Normal(Language.NoAreaDataBypass);
         } else {
@@ -451,7 +447,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
             form.lgnjs = ~~(Date.now() / 1000);
 
         html.split("\"_js_").slice(1).map((val) => {
-            jar.setCookie(utils.formatCookie(JSON.parse("[\"" + utils.getFrom(val, "", "]") + "]"), "facebook"),"https://www.facebook.com")
+            jar.setCookie(utils.formatCookie(JSON.parse("[\"" + utils.getFrom(val, "", "]") + "]"), "facebook"), "https://www.facebook.com")
         });
 
         logger.Normal(Language.OnLogin);
@@ -603,12 +599,12 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                                             Database().delete('Through2Fa');
                                         }
                                         const Otp_code = require('totp-generator');
-                                        const Code = global.Fca.Require.FastConfig.AuthString.includes('|') == false ? Otp_code(global.Fca.Require.FastConfig.AuthString.includes(" ") ? global.Fca.Require.FastConfig.AuthString.replace(RegExp(" ", 'g'), "") : global.Fca.Require.FastConfig.AuthString) :  question(Language.EnterSecurityCode); 
+                                        const Code = global.Fca.Require.FastConfig.AuthString.includes('|') == false ? Otp_code(global.Fca.Require.FastConfig.AuthString.includes(" ") ? global.Fca.Require.FastConfig.AuthString.replace(RegExp(" ", 'g'), "") : global.Fca.Require.FastConfig.AuthString) : question(Language.EnterSecurityCode); 
                                             try {
                                                 const approvals = function(N_Code) { 
                                                     form.approvals_code = N_Code;
                                                     form['submit[Continue]'] = $("#checkpointSubmitButton").html();
-                                                    var prResolve,prReject;
+                                                    var prResolve, prReject;
                                                     var rtPromise = new Promise((resolve, reject) => { prResolve = resolve; prReject = reject; });
 
                                                     if (typeof N_Code == "string") {
@@ -716,7 +712,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                                             continue: function submit2FA(code) {
                                                 form.approvals_code = code;
                                                 form['submit[Continue]'] = $("#checkpointSubmitButton").html(); //'Continue';
-                                                var prResolve,prReject;
+                                                var prResolve, prReject;
                                                 var rtPromise = new Promise((resolve, reject) => { prResolve = resolve; prReject = reject; });
                                                 if (typeof code == "string") {
                                                     utils
@@ -1005,7 +1001,7 @@ try {
 
     let redirect = [1, "https://m.facebook.com/"];
     let bypass_region_err = false;
-        var ctx,api;
+        var ctx, api;
             mainPromise = mainPromise
                 .then(function(res) {
                     var reg = /<meta http-equiv="refresh" content="0;url=([^"]+)[^>]+>/;

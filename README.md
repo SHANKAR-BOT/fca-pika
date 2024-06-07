@@ -1,6 +1,19 @@
 [![Socket Badge](https://socket.dev/api/badge/npm/package/meta-horizonn)](https://socket.dev/npm/package/meta-horizonn)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/JustKemForFun/JustKemForFun)
-![Pastebin Badge](https://img.shields.io/badge/Pastebin-02456C?logo=pastebin&logoColor=fff&style=flat-square) 
+![Pastebin Badge](https://img.shields.io/badge/Pastebin-02456C?logo=pastebin&logoColor=fff&style=flat-square)
+<!-- [![NPM](https://nodei.co/npm/meta-horizonn.png?downloads=true)](https://www.npmjs.com/package/meta-horizonn) -->
+<!-- [![NPM Version](https://img.shields.io/npm/v/meta-horizonn.svg?style=flat-square)](https://www.npmjs.org/package/meta-horizonn)
+[![Minimum Node.JS Version](https://badgen.net/npm/node/meta-horizonn)](https://npmjs.com/package/meta-horizonn) -->
+<!-- <p align="center">
+	<a href="https://nodejs.org/dist/v16.20.0">
+		<img src="https://img.shields.io/badge/Nodejs%20Support-16.x-brightgreen.svg?style=flat-square" alt="Nodejs Support v16.x">
+  </a>
+</p> -->
+
+> [!NOTE]
+ This is a messenger chat bot using a personal account. [Origin here](https://github.com/Schmavery/facebook-chat-api) and this may lead to facebook account being locked due to spam or other reasons. 
+ So, I recommend using a clone account (one that you're willing to throw away at any time)<br>
+ ***I am not responsible for any problems that may arise from using this bot.***
 
 > [!IMPORTANT]
  The contents of this repository may not be used for AI or anything else that Kem deems equivalent.  
@@ -22,51 +35,18 @@
 > [!WARNING]
 > Critical content comes here. -->
 
-# NPM Status
-
-[![NPM](https://nodei.co/npm/meta-horizonn.png?downloads=true)](https://www.npmjs.com/package/meta-horizonn)
-[![NPM Version](https://img.shields.io/npm/v/meta-horizonn.svg?style=flat-square)](https://www.npmjs.org/package/meta-horizonn)
-[![Minimum Node.JS Version](https://badgen.net/npm/node/meta-horizonn)](https://npmjs.com/package/meta-horizonn)
-<!-- <p align="center">
-	<a href="https://nodejs.org/dist/v16.20.0">
-		<img src="https://img.shields.io/badge/Nodejs%20Support-16.x-brightgreen.svg?style=flat-square" alt="Nodejs Support v16.x">
-  </a>
-</p> -->
-<!-- [![NPM Package Dependents](https://badgen.net/npm/dependents/meta-horizonn)](https://npmjs.com/package/meta-horizonn)
-
-## Install Package
-[![Install Size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=meta-horizonn&query=$.install.pretty&label=install%20size&style=flat-square)](https://packagephobia.now.sh/result?p=meta-horizonn)
-[![NPM Bundle Size](https://img.shields.io/bundlephobia/minzip/meta-horizonn?style=flat-square)](https://bundlephobia.com/package/meta-horizonn@latest)
-
-# Downloads
-[![NPM Package Daily Downloads](https://badgen.net/npm/dm/meta-horizonn)](https://npmjs.com/package/meta-horizonn)
-[![NPM Package Monthly Downloads](https://badgen.net/npm/dm/meta-horizonn)](https://npmjs.com/package/meta-horizonn)
-### Total Downloads
-[![NPM Package Total Downloads](https://badgen.net/npm/dt/meta-horizonn)](https://npmjs.com/package/meta-horizonn) -->
-
 <!-- ## **List Info**
 
-- [📝 **Note**](#-note)
 - [🚧 **Requirement**](#-requirement)
-- [📝 **Tutorial**](#-tutorial)
-- [🔔 **How to get notification when have new update?**](#-how-to-get-notification-when-have-new-update)
-- [🆙 **How to Update**](#-how-to-update)
-- [🛠️ **How to create new commands**](#️-how-to-create-new-commands)
-- [💭 **Support**](#-support)
 - [📚 **Support Languages in source code**](#-support-languages-in-source-code)
-- [📌 **Common Problems**](#-common-problems)
-- [❌ **DO NOT USE THE ORIGINAL UNDERGRADUATE VERSION**](#-do-not-use-the-original-undergraduate-version)
-- [✨ **Copyright (C)**](#-copyright-c)
 - [📜 **License**](#-license)
-
-<hr>
-
- ## 📝 **Note**
-- This is a messenger chat bot using a personal account, using an [unofficial api](https://github.com/ntkhang03/fb-chat-api/blob/master/DOCS.md) ([Origin here](https://github.com/Schmavery/facebook-chat-api)) and this may lead to facebook account being locked due to spam or other reasons. 
-- So, I recommend using a clone account (one that you're willing to throw away at any time)
-- ***I am not responsible for any problems that may arise from using this bot.*** -->
+-->
 > [!WARNING]
 > *There is a risk of your account being banned after running the code, so please ensure proper account management and handling. If it happens, please try logging in again and retrieve your AppState.*
+
+## 🚧 **Requirement**
+- Node.JS 14.x [Download](https://nodejs.org/dist/v14.17.0) | [Home](https://nodejs.org/en/download/) | [Other versions](https://nodejs.org/en/download/releases/)
+- Knowledge of **programming**, JavaScript, Node.JS
 
 ## **📝 Important Note <br> Quan Trọng !!!**
 
@@ -92,9 +72,20 @@ Cảm Ơn Vì Đã Sài Sản Phẩm của HZI, Thân Ái.
 ***KANZUWAKAZAKI(15/04/2023)<br>
 KEM.RELEASE(25/08/2023) | (09/12/2023)***
 
-## **📚 Support For :**
+## **📚 Support Languages in source code**
+- Currently, FCA supports 2 languages:
+- [x] `en: English`
+- [x] `vi: Vietnamese`
 
 + Support English, VietNamese !,
++ Change language in `FastConfigFca.json` file
+```json
+"Language": "vi"
+```
++ Find Line Language Change:
+```json
+"Language": "en"
+```
 + All bot if using listenMqtt first.
 
 # **📜 API Cho ChatBot Messenger**
@@ -218,6 +209,12 @@ login(credentials, (err, api) => {
 ## ***📜 C3C - FBSTATE***
 
 Hoặc Dễ Dàng Hơn ( Chuyên Nghiệp ) Bạn Có Thể Dùng => **[c3c-fbstate](https://github.com/c3cbot/c3c-fbstate)** Để Lấy FbState Và Đổi Tên Lại Thành AppState Cũng Được ! (appstate.json)
+
+## ***📜 License***
+
+• Give us a star! <br/>
+• This project is licensed under the MIT License <br/>
+• Go to [LICENSE](https://github.com/JustKemForFun/Meta-Horizon/blob/main/LICENSE) file
 
 ------------------------------------
 

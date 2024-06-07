@@ -204,14 +204,14 @@ try {
         process.exit(1);
     }
 
-try {
-    var Data_Setting = require(process.cwd() + "/FastConfigFca.json");
-}
-catch (e) {
-    global.Fca.Require.logger.Error('Detect Your FastConfigFca Settings Invalid!, Carry out default restoration');
-    global.Fca.Require.fs.writeFileSync(process.cwd() + "/FastConfigFca.json", JSON.stringify(global.Fca.Data.ObjFastConfig, null, "\t"));     
-    process.exit(1)
-}
+    try {
+        var Data_Setting = require(process.cwd() + "/FastConfigFca.json");
+    }
+    catch (e) {
+        global.Fca.Require.logger.Error('Detect Your FastConfigFca Settings Invalid!, Carry out default restoration');
+        global.Fca.Require.fs.writeFileSync(process.cwd() + "/FastConfigFca.json", JSON.stringify(global.Fca.Data.ObjFastConfig, null, "\t"));     
+        process.exit(1)
+    }
     if (global.Fca.Require.fs.existsSync(process.cwd() + '/FastConfigFca.json')) {
         
         for (let i of All_Variable) {
