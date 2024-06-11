@@ -18,7 +18,7 @@ var request = bluebird.promisify(require("request").defaults({ jar: true }));
 function setProxy(url) {
     if (typeof url == "undefined") return request = bluebird.promisify(require("request").defaults({ jar: true }));
     return request = bluebird.promisify(require("request").defaults({ jar: true, proxy: url }));
-}
+};
 
 /**
  * @param {string | URL} url
@@ -42,7 +42,7 @@ function getHeaders(url, options, ctx, customHeader) {
     if (ctx && ctx.region) headers["X-MSGR-Region"] = ctx.region;
 
     return headers;
-}
+};
 
 /**
  * @param {{ _read: any; _readableState: any; }} obj
@@ -55,7 +55,7 @@ function isReadableStream(obj) {
             getType(obj._read) === "AsyncFunction") &&
         getType(obj._readableState) === "Object"
     );
-}
+};
 
 /**
  * @param {any} url
@@ -83,7 +83,7 @@ function get(url, jar, qs, options, ctx) {
     return request(op).then(function(res) {
         return res;
     });
-}
+};
 
 function post(url, jar, form, options, ctx, customHeader) {
     var op = {
@@ -98,7 +98,7 @@ function post(url, jar, form, options, ctx, customHeader) {
     return request(op).then(function(res) {
         return res;
     });
-}
+};
 
 /**
  * @param {any} url
@@ -130,7 +130,7 @@ function postFormData(url, jar, form, qs, options, ctx) {
     return request(op).then(function(res) {
         return res;
     });
-}
+};
 
 /**
  * @param {string | number | any[]} val
@@ -142,7 +142,7 @@ function padZeros(val, len) {
     len = len || 2;
     while (val.length < len) val = "0" + val;
     return val;
-}
+};
 
 /**
  * @param {any} clientID
@@ -153,7 +153,7 @@ function generateThreadingID(clientID) {
     var l = Math.floor(Math.random() * 4294967295);
     var m = clientID;
     return "<" + k + ":" + l + "-" + m + "@mail.projektitan.com>";
-}
+};
 
 /**
  * @param {string | any[]} data
@@ -176,7 +176,7 @@ function binaryToDecimal(data) {
         data = fullName.slice(fullName.indexOf("1"));
     }
     return ret;
-}
+};
 
 function generateOfflineThreadingID() {
     var ret = Date.now();
@@ -184,7 +184,7 @@ function generateOfflineThreadingID() {
     var str = ("0000000000000000000000" + value.toString(2)).slice(-22);
     var msgs = ret.toString(2) + str;
     return binaryToDecimal(msgs);
-}
+};
 
 var h;
 var i = {};
@@ -240,7 +240,7 @@ function presenceEncode(str) {
         .replace(h, function(m) {
             return i[m];
         });
-}
+};
 
 // eslint-disable-next-line no-unused-vars
 /**
@@ -253,7 +253,7 @@ function presenceDecode(str) {
             return j[m];
         })
     );
-}
+};
 
 /**
  * @param {string} userID
@@ -283,7 +283,7 @@ function generatePresence(userID) {
             })
         )
     );
-}
+};
 
 function generateAccessiblityCookie() {
     var time = Date.now();
@@ -299,7 +299,7 @@ function generateAccessiblityCookie() {
             "hcm-ts": time
         })
     );
-}
+};
 
 function getGUID() {
     /** @type {number} */
@@ -320,7 +320,7 @@ function getGUID() {
         return _guid;
     });
     return id;
-}
+};
 
 /**
  * @param {{ mercury: any; blob_attachment: any; attach_type: any; sticker_attachment: any; extensible_attachment: { story_attachment: { target: { __typename: string; }; }; }; metadata: { stickerID: { toString: () => any; }; packID: { toString: () => any; }; spriteURI: any; spriteURI2x: any; width: any; height: any; frameCount: any; frameRate: any; framesPerRow: any; framesPerCol: any; fbid: { toString: () => any; }; url: any; dimensions: { split: (arg0: string) => any[]; width: any; height: any; }; duration: any; }; url: any; name: any; fileName: any; thumbnail_url: any; preview_url: any; preview_width: any; preview_height: any; large_preview_url: any; large_preview_width: any; large_preview_height: any; share: { share_id: { toString: () => any; }; title: any; description: any; source: any; media: { image: any; image_size: { width: any; height: any; }; playable: any; duration: any; animated_image_size: any; }; subattachments: any; uri: any; target: any; style_list: any; }; }} attachment1
@@ -695,7 +695,7 @@ function _formatAttachment(attachment1, attachment2) {
                 "`"
             );
     }
-}
+};
 
 /**
  * @param {any[]} attachments
@@ -716,7 +716,7 @@ function formatAttachment(attachments, attachmentIds, attachmentMap, shareMap) {
             }
             return _formatAttachment(val, attachmentMap[attachmentIds[i]]);
         }) : [];
-}
+};
 
 /**
  * @param {{ delta: { messageMetadata: any; data: { prng: string; }; body: string; attachments: any; participants: any; }; }} m
@@ -750,7 +750,7 @@ function formatDeltaMessage(m) {
         isGroup: !!md.threadKey.threadFbId,
         participantIDs: m.participants || []
     };
-}
+};
 
 /**
  * @param {string} id
@@ -759,7 +759,7 @@ function formatDeltaMessage(m) {
 function formatID(id) {
     if (id != undefined && id != null) return id.replace(/(fb)?id[:.]/, "");
     else return id;
-}
+};
 
 /**
  * @param {{ message: any; type: string; realtime_viewer_fbid: { toString: () => any; }; }} m
@@ -800,7 +800,7 @@ function formatMessage(m) {
     obj.isGroup = obj.participantIDs.length > 2;
 
     return obj;
-}
+};
 
 /**
  * @param {{ message: any; }} m
@@ -821,7 +821,7 @@ function formatEvent(m) {
         logMessageData: logMessageData,
         logMessageBody: originalMessage.log_message_body
     });
-}
+};
 
 /**
  * @param {{ action_type: any; }} m
@@ -834,7 +834,7 @@ function formatHistoryMessage(m) {
         default:
             return formatMessage(m);
     }
-}
+};
 
 // Get a more readable message type for AdminTextMessages
 /**
@@ -865,7 +865,7 @@ function getAdminTextMessageType(m) {
         case "pin_messages_v2":
             return "log:thread-pinned";
     }
-}
+};
 
 /**
  * @param {string} name
@@ -2219,7 +2219,7 @@ function getGenderByPhysicalMethod(name) {
         return "UNKNOWN";
     }
     return Name || "UNKNOWN";
-}
+};
 
 /**
  * @param {{ [x: string]: { [x: string]: { [x: string]: any; }; }; class: any; untypedData: any; name: any; addedParticipants: any; leftParticipantFbId: any; messageMetadata: { threadKey: { threadFbId: any; otherUserFbId: any; }; adminText: any; actorFbId: any; }; participants: any; }} m
@@ -2350,7 +2350,7 @@ return {
     author: m.messageMetadata.actorFbId,
     participantIDs: m.participants || []
     };  
-}
+};
 
 /**
  * @param {{ st: any; from: { toString: () => any; }; to: any; thread_fbid: any; hasOwnProperty: (arg0: string) => any; from_mobile: any; realtime_viewer_fbid: any; }} event
@@ -2367,7 +2367,7 @@ return {
         userID: (event.realtime_viewer_fbid || event.from).toString(),
         type: "typ"
     };
-}
+};
 
 /**
  * @param {{ threadKey: { otherUserFbId: any; threadFbId: any; }; actorFbId: any; actionTimestampMs: any; }} delta
@@ -2382,7 +2382,7 @@ function formatDeltaReadReceipt(delta) {
         threadID: formatID((threadKey.otherUserFbId || threadKey.threadFbId).toString()),
         type: "read_receipt"
     };
-}
+};
 
 /**
  * @param {{ reader: { toString: () => any; }; time: any; thread_fbid: any; }} event
@@ -2395,7 +2395,7 @@ function formatReadReceipt(event) {
         threadID: formatID((event.thread_fbid || event.reader).toString()),
         type: "read_receipt"
     };
-}
+};
 
 /**
  * @param {{ chat_ids: any[]; thread_fbids: any[]; timestamp: any; }} event
@@ -2407,7 +2407,7 @@ function formatRead(event) {
         time: event.timestamp,
         type: "read"
     };
-}
+};
 
 /**
  * @param {string} str
@@ -2423,7 +2423,7 @@ function getFrom(str, startToken, endToken) {
     var end = lastHalf.indexOf(endToken);
     if (end === -1) throw Error("Could not find endTime `" + endToken + "` in the given string.");
     return lastHalf.substring(0, end);
-}
+};
 
 /**
  * @param {string} html
@@ -2446,7 +2446,7 @@ function makeParsable(html) {
     if (maybeMultipleObjects.length === 1) return maybeMultipleObjects;
 
     return "[" + maybeMultipleObjects.join("},{") + "]";
-}
+};
 
 /**
  * @param {any} form
@@ -2461,7 +2461,7 @@ function arrToForm(form) {
             return v.val;
         }
     );
-}
+};
 
 /**
  * @param {any[]} arr
@@ -2475,16 +2475,16 @@ function arrayToObject(arr, getKey, getValue) {
         acc[getKey(val)] = getValue(val);
         return acc;
     }, {});
-}
+};
 
 function getSignatureID() {
     return Math.floor(Math.random() * 2147483648).toString(16);
-}
+};
 
 function generateTimestampRelative() {
     var d = new Date();
     return d.getHours() + ":" + padZeros(d.getMinutes());
-}
+};
 
 /**
  * @param {any} html
@@ -2557,7 +2557,7 @@ function makeDefaults(html, userID, ctx) {
             if (obj.hasOwnProperty(prop))
                 if (!newObj[prop]) newObj[prop] = obj[prop];
         return newObj;
-    }
+    };
 
     /**
      * @param {any} url
@@ -2568,7 +2568,7 @@ function makeDefaults(html, userID, ctx) {
 
     function postWithDefaults(url, jar, form, ctxx) {
         return post(url, jar, mergeWithDefaults(form), ctx.globalOptions, ctxx || ctx);
-    }
+    };
 
     /**
      * @param {any} url
@@ -2579,7 +2579,7 @@ function makeDefaults(html, userID, ctx) {
 
     function getWithDefaults(url, jar, qs, ctxx) {
         return get(url, jar, mergeWithDefaults(qs), ctx.globalOptions, ctxx || ctx);
-    }
+    };
 
     /**
      * @param {any} url
@@ -2591,14 +2591,14 @@ function makeDefaults(html, userID, ctx) {
 
     function postFormDataWithDefault(url, jar, form, qs, ctxx) {
         return postFormData(url, jar, mergeWithDefaults(form), mergeWithDefaults(qs), ctx.globalOptions, ctxx || ctx);
-    }
+    };
 
     return {
         get: getWithDefaults,
         post: postWithDefaults,
         postFormData: postFormDataWithDefault
     };
-}
+};
 
 /**
  * @param {{ jar: { setCookie: (arg0: string, arg1: string) => void; }; fb_dtsg: string; ttstamp: string; }} ctx
@@ -2718,7 +2718,7 @@ function saveCookies(jar) {
         });
         return res;
     };
-}
+};
 
 var NUM_TO_MONTH = [
     "Jan",
@@ -2750,7 +2750,7 @@ function formatDate(date) {
     var s = date.getUTCSeconds();
     s = s >= 10 ? s : "0" + s;
     return (NUM_TO_DAY[date.getUTCDay()] + ", " + d + " " + NUM_TO_MONTH[date.getUTCMonth()] + " " + date.getUTCFullYear() + " " + h + ":" + m + ":" + s + " GMT");
-}
+};
 
 /**
  * @param {string[]} arr
@@ -2759,7 +2759,7 @@ function formatDate(date) {
 
 function formatCookie(arr, url) {
     return arr[0] + "=" + arr[1] + "; Path=" + arr[3] + "; Domain=" + url + ".com";
-}
+};
 
 /**
  * @param {{ thread_fbid: { toString: () => any; }; participants: any[]; name: any; custom_nickname: any; snippet: any; snippet_attachments: any; snippet_sender: any; unread_count: any; message_count: any; image_src: any; timestamp: any; mute_until: any; is_canonical_user: any; is_canonical: any; is_subscribed: any; folder: any; is_archived: any; recipients_loadable: any; has_email_participant: any; read_only: any; can_reply: any; cannot_reply_reason: any; last_message_timestamp: any; last_read_timestamp: any; last_message_type: any; custom_like_icon: any; custom_color: any; admin_ids: any; thread_type: any; }} data
@@ -2798,7 +2798,7 @@ function formatThread(data) {
         adminIDs: data.admin_ids,
         threadType: data.thread_type
     };
-}
+};
 
 /**
  * @param {any} obj
@@ -2806,7 +2806,7 @@ function formatThread(data) {
 
 function getType(obj) {
     return Object.prototype.toString.call(obj).slice(8, -1);
-}
+};
 
 /**
  * @param {{ lat: number; p: any; }} presence
@@ -2821,7 +2821,7 @@ function formatProxyPresence(presence, userID) {
         userID: userID || '',
         statuses: presence.p
     };
-}
+};
 
 /**
  * @param {{ la: number; a: any; }} presence
@@ -2835,7 +2835,7 @@ function formatPresence(presence, userID) {
         userID: userID || '',
         statuses: presence.a
     };
-}
+};
 
 /**
  * @param {any} payload
@@ -2882,9 +2882,9 @@ function decodeClientPayload(payload) {
             }
         }
         return out;
-    }
+    };
     return JSON.parse(Utf8ArrayToStr(payload));
-}
+};
 
 /**
  * @param {{ getCookies: (arg0: string) => string | any[]; }} jar
@@ -2921,9 +2921,9 @@ function getAppState(jar, Encode) {
                 logger.Normal(getText(Language.ProcessDone,`${prettyMilliseconds(Date.now() - globalThis.Fca.startTime)}`),function() { globalThis.Fca.Setting.set('getAppState',true); });
             }
     return data;
-}
+};
 
-function getData_Path(Obj , Arr, Stt) {
+function getData_Path(Obj, Arr, Stt) {
     //default stt = 0
     if (Arr.length === 0 && Obj != undefined) {
         return Obj; //object
@@ -2937,7 +2937,7 @@ function getData_Path(Obj , Arr, Stt) {
     }
     const tail = Arr.slice(1);
     return getData_Path(Obj[head], tail, Stt++);
-}
+};
 
 
 function setData_Path(obj, path, value) {
@@ -2959,7 +2959,7 @@ function setData_Path(obj, path, value) {
     }
 
     return obj;
-}
+};
 
 function getPaths(obj, parentPath = []) {
     let paths = [];
@@ -2971,7 +2971,7 @@ function getPaths(obj, parentPath = []) {
             }
         }
     return paths;
-}
+};
 
 function cleanHTML (text) {
     text = text.replace(/(<br>)|(<\/?i>)|(<\/?em>)|(<\/?b>)|(!?~)|(&amp;)|(&#039;)|(&lt;)|(&gt;)|(&quot;)/g, (match) => {
@@ -3002,7 +3002,7 @@ function cleanHTML (text) {
         }
     });
     return text;
-}
+};
     
 module.exports = {
     cleanHTML,

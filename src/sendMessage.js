@@ -302,11 +302,19 @@ module.exports = function(defaultFuncs, api, ctx) {
       form["audio_ids"] = [];
 
       if (utils.getType(msg.attachment) !== "Array") msg.attachment = [msg.attachment];
-      if (msg.attachment.every(e => /_id$/.test(e[0]))) {
-				//console.log(msg.attachment)
-				msg.attachment.map(e => form[`${e[0]}s`].push(e[1]));
-				return cb();
-			  }
+      // if (msg.attachment.every(e => /_id$/.test(e[0]))) {
+			// 	//console.log(msg.attachment)
+			// 	msg.attachment.map(e => form[`${e[0]}s`].push(e[1]));
+			// 	return cb();
+			//   }
+      try {
+        if (msg.attachment.every(e => e !== undefined && /_id$/.test(e[0]))) {
+          msg.attachment.map(e => form[`${e[0]}s`].push(e[1]));
+          return cb();
+        }
+      } catch (err) {
+        console.error('Error in handleAttachment:', err); // Bạn có thể xử lý lỗi tại đây hoặc trả về từ hàm
+      }
 
       if (global.Fca.Require.FastConfig.AntiSendAppState) {
         try {
@@ -401,7 +409,7 @@ module.exports = function(defaultFuncs, api, ctx) {
     if (!callback && (utils.getType(threadID) === "Function" || utils.getType(threadID) === "AsyncFunction")) return threadID({ error: "Pass a threadID as a second argument." });
     if (!replyToMessage && utils.getType(callback) === "String") {
       replyToMessage = callback;
-      callback = function() { };
+      callback = function() {};
     }
 
     var resolveFunc = function() {};
