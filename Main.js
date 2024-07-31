@@ -645,7 +645,7 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                                                                         .then(function(res) {
                                                                             var headers = res.headers;
                                                                             if (!headers.location && res.headers['set-cookie'][0].includes('checkpoint')) throw { error: "wtf ??:D" };
-                                                                            var appState = utils.getAppState(jar,false);
+                                                                            var appState = utils.getAppState(jar, false);
                                                                             Database().set('Through2Fa', appState);
                                                                             return loginHelper(appState, email, password, loginOptions, callback);
                                                                         })
@@ -731,8 +731,9 @@ function makeLogin(jar, email, password, loginOptions, callback, prCallback) {
                                                             }
                                                         })
                                                         .then(function() {
-                                                            delete form.no_fido;delete form.approvals_code;
-                                                            form.name_action_selected = 'dont_save'; //'save_device' || 'dont_save;
+                                                            delete form.no_fido;
+                                                            delete form.approvals_code;
+                                                            form.name_action_selected = 'dont_save'; // 'save_device' || 'dont_save;
                                                             return utils.post(nextURL, jar, form, loginOptions).then(utils.saveCookies(jar));
                                                         })
                                                         .then(function(res) {
@@ -862,6 +863,7 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
 
 try {
     if (appState) {
+        if (Array.isArray(appState) && appState.length > 0 && appState[0].hasOwnProperty('key')) {
         // console.log(gradient('purple', 'orange').multiline(["H", "O", "R", "I", "Z", "O", "N"].join('\n')));
         logger.Normal(Language.OnProcess);
             switch (Database().has("FBKEY")) {
@@ -881,6 +883,7 @@ try {
                     Database().set('FBKEY', SecurityKey);
                 }
             }
+        }
             try {
                 switch (global.Fca.Require.FastConfig.EncryptFeature) {
                     case true: {
@@ -969,6 +972,7 @@ try {
                 Database().set('Backup', appState);
             mainPromise = utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true }).then(utils.saveCookies(jar));
         } 
+    // }
         catch (e) {
             try {
                 if (Database().has('Backup')) {
