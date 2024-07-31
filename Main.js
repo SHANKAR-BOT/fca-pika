@@ -156,7 +156,7 @@ if (global.Fca.Require.FastConfig.HTML.HTML) Server= express.listen(express.get(
 //             WSS.handleUpgrade(escapedReq, escapedSocket, escapedHead, (wss) => {
 //                 const escapedWss = escapeHTML(wss);
 //                 const escapedReq = escapeHTML(req);
-        
+
 //                 escapedWss.emit('connection', escapedWss, escapedReq);
 //             });
 //         });
@@ -207,7 +207,7 @@ if (global.Fca.Require.FastConfig.HTML.HTML) Server= express.listen(express.get(
 //             }
 //         }
 //     }
-    
+
 // }
 
 /!-[ Function setOptions ]-!/
@@ -338,7 +338,7 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
         }
 
         let Slot = Object.keys(CHECK_MQTT);
-        
+
         var mqttEndpoint, region, irisSeqID;
         Object.keys(CHECK_MQTT).map(function(MQTT) {
             if (CHECK_MQTT[MQTT] && !region) {
@@ -863,7 +863,6 @@ function loginHelper(appState, email, password, globalOptions, callback, prCallb
 
 try {
     if (appState) {
-        if (Array.isArray(appState) && appState.length > 0 && appState[0].hasOwnProperty('key')) {
         // console.log(gradient('purple', 'orange').multiline(["H", "O", "R", "I", "Z", "O", "N"].join('\n')));
         logger.Normal(Language.OnProcess);
             switch (Database().has("FBKEY")) {
@@ -883,7 +882,6 @@ try {
                     Database().set('FBKEY', SecurityKey);
                 }
             }
-        }
             try {
                 switch (global.Fca.Require.FastConfig.EncryptFeature) {
                     case true: {
@@ -971,8 +969,7 @@ try {
                 });
                 Database().set('Backup', appState);
             mainPromise = utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true }).then(utils.saveCookies(jar));
-        } 
-    // }
+        }
         catch (e) {
             try {
                 if (Database().has('Backup')) {
@@ -1194,7 +1191,7 @@ function login(loginData, options, callback) {
         emitReady: false,
         userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"
     };
-    
+
     var prCallback = null;
     if (utils.getType(callback) !== "Function" && utils.getType(callback) !== "AsyncFunction") {
         var rejectFunc = null;
