@@ -280,8 +280,8 @@ function setOptions(globalOptions, options) {
     });
 }
 
-function BypassAutomationNotification(response, jar, globalOptions, appstate,ID) {
-    global.Fca.BypassAutomationNotification = BypassAutomationNotification
+function BypassAutomationNotification(response, jar, globalOptions, appstate, ID) {
+    global.Fca.BypassAutomationNotification = BypassAutomationNotification;
     try {
         let UID;
         if (ID) UID = ID
@@ -296,8 +296,7 @@ function BypassAutomationNotification(response, jar, globalOptions, appstate,ID)
                     const jazoest = utils.getFrom(response.body, 'jazoest=', '",');
                     const lsd = utils.getFrom(response.body, "[\"LSD\",[],{\"token\":\"", "\"}");
                     const FormBypass = {
-                        av: UID,
-                        fb_dtsg, jazoest, lsd,
+                        av: UID, fb_dtsg, jazoest, lsd,
                         fb_api_caller_class: "RelayModern",
                         fb_api_req_friendly_name: "FBScrapingWarningMutation",
                         variables: JSON.stringify({}),
@@ -369,7 +368,7 @@ function BypassAutomationNotification(response, jar, globalOptions, appstate,ID)
  */
 
 function buildAPI(globalOptions, html, jar, bypass_region) {
-    const fb_dtsg = utils.getFrom(html, '["DTSGInitData",[],{"token":"', '","')[0];
+    const fb_dtsg = utils.getFroms(html, '["DTSGInitData",[],{"token":"', '","')[0];
     
     // var maybeCookie = jar.getCookies("https://www.facebook.com").filter(function(/** @type {{ cookieString: () => string; }} */val) { return val.cookieString().split("=")[0] === "c_user"; });
        //check tiktik

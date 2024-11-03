@@ -2425,6 +2425,34 @@ function getFrom(str, startToken, endToken) {
     return lastHalf.substring(0, end);
 };
 
+function getFroms(str, startToken, endToken) {
+    //advanced search by kanzuuuuuuuuuu 
+    let results = [];
+    let currentIndex = 0;
+    
+    while (true) {
+        let start = str.indexOf(startToken, currentIndex);
+        if (start === -1) break;
+        
+        start += startToken.length;
+        
+        let lastHalf = str.substring(start);
+        let end = lastHalf.indexOf(endToken);
+        
+        if (end === -1) {
+            if (results.length === 0) {
+                throw Error("Could not find endToken `" + endToken + "` in the given string.");
+            }
+            break;
+        }
+        
+        results.push(lastHalf.substring(0, end));
+        currentIndex = start + end + endToken.length;
+    }
+    
+    return results.length === 0 ? "" : results.length === 1 ? results[0] : results;
+}
+
 /**
  * @param {string} html
  */
