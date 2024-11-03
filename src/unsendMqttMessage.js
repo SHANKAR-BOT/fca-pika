@@ -23,8 +23,8 @@ module.exports = function (defaultFuncs, api, ctx) {
 		}
 
         const Payload = {
-            message_id:messageID,
-            thread_key:threadID,
+            message_id: messageID,
+            thread_key: threadID,
             sync_group: 1
         };
 
