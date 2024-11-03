@@ -440,7 +440,7 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
                 switch (Slot.indexOf(MQTT)) {
                     case 0: {
                         irisSeqID = CHECK_MQTT[MQTT][1];
-                            mqttEndpoint = CHECK_MQTT[MQTT][2];
+                            mqttEndpoint = CHECK_MQTT[MQTT][2].replace(/\\\//g, "/");
                             region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
                         return;
                     }
@@ -451,14 +451,14 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
                         return;
                     }
                     case 2: {
-                        mqttEndpoint = CHECK_MQTT[MQTT][4];
+                        mqttEndpoint = CHECK_MQTT[MQTT][2].replace(/\\\//g, "/"); // is important lmao f?
                             region = new URL(mqttEndpoint).searchParams.get("region").toUpperCase();
                         return;
                     }
                 }
             return;
             }
-        });
+        });   
 
         const regions = [
             {
@@ -1255,7 +1255,7 @@ try {
                 .then(function(res){
                     // console.log('okay');
                     // global.Fca.Require.fs.writeFileSync('./AAAAA.html', JSON.stringify(res.body, null, 2));
-                    var html = res.body,Obj = buildAPI(globalOptions, html, jar, bypass_region_err);
+                    var html = res.body, Obj = buildAPI(globalOptions, html, jar, bypass_region_err);
                         ctx = Obj.ctx;
                         api = Obj.api;
                         // process.env.api = Obj.api;

@@ -3085,5 +3085,6 @@ module.exports = {
     decodeClientPayload,
     getAppState,
     getAdminTextMessageType,
-    setProxy
+    setProxy,
+    getFroms
 };
