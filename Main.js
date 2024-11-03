@@ -280,6 +280,86 @@ function setOptions(globalOptions, options) {
     });
 }
 
+function BypassAutomationNotification(response, jar, globalOptions, appstate,ID) {
+    global.Fca.BypassAutomationNotification = BypassAutomationNotification
+    try {
+        let UID;
+        if (ID) UID = ID
+        else {
+            UID = (appstate.find(i => i.key == 'c_user') || appstate.find(i => i.key == 'i_user'))
+            UID = UID.value;
+        }
+        if (response !== undefined) {
+            if (response.request.uri && response.request.uri.href.includes("https://www.facebook.com/checkpoint/")) {
+                if (response.request.uri.href.includes('601051028565049')) {
+                    const fb_dtsg = utils.getFrom(response.body, '["DTSGInitData",[],{"token":"', '","');
+                    const jazoest = utils.getFrom(response.body, 'jazoest=', '",');
+                    const lsd = utils.getFrom(response.body, "[\"LSD\",[],{\"token\":\"", "\"}");
+                    const FormBypass = {
+                        av: UID,
+                        fb_dtsg, jazoest, lsd,
+                        fb_api_caller_class: "RelayModern",
+                        fb_api_req_friendly_name: "FBScrapingWarningMutation",
+                        variables: JSON.stringify({}),
+                        server_timestamps: true,
+                        doc_id: 6339492849481770
+                    }
+                    return utils.post("https://www.facebook.com/api/graphql/", jar, FormBypass, globalOptions)
+                    .then(utils.saveCookies(jar)).then(function(res) {
+                        global.Fca.Require.logger.Warning(global.Fca.Require.Language.Index.Bypass_AutoNoti);
+                        return process.exit(1);                    
+                    });
+                }
+                else {
+                    return response;
+                }
+            }
+            else {
+                return response;
+            }
+        }
+        else {
+            return utils.get('https://www.facebook.com/', jar, null, globalOptions).then(function(res) {
+                if (res.request.uri && res.request.uri.href.includes("https://www.facebook.com/checkpoint/")) {
+                    if (res.request.uri.href.includes('601051028565049')) return { Status: true, Body: res.body }
+                    else return { Status: false, Body: res.body }
+                }
+                else return { Status: false, Body: res.body }
+            }).then(function(res) {
+                if (res.Status === true) {
+                    const fb_dtsg = utils.getFrom(res.Body, '["DTSGInitData",[],{"token":"', '","');
+                    const jazoest = utils.getFrom(res.Body, 'jazoest=', '",');
+                    const lsd = utils.getFrom(res.Body, "[\"LSD\",[],{\"token\":\"", "\"}");
+                    const FormBypass = {
+                        av: UID,
+                        fb_dtsg, jazoest, lsd,
+                        fb_api_caller_class: "RelayModern",
+                        fb_api_req_friendly_name: "FBScrapingWarningMutation",
+                        variables: JSON.stringify({}),
+                        server_timestamps: true,
+                        doc_id: 6339492849481770
+                    }
+                return utils.post("https://www.facebook.com/api/graphql/", jar, FormBypass, globalOptions).then(utils.saveCookies(jar))
+                    .then(res => {
+                        global.Fca.Require.logger.Warning(global.Fca.Require.Language.Index.Bypass_AutoNoti);
+                        return res;
+                    })
+                }
+                else return res;
+            })
+            .then(function() {
+                return utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true }).then(utils.saveCookies(jar))
+            })
+            .then(function() {
+                return process.exit(1);
+            })
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 /!-[ Function BuildAPI ]-!/
 
 /**
@@ -289,6 +369,8 @@ function setOptions(globalOptions, options) {
  */
 
 function buildAPI(globalOptions, html, jar, bypass_region) {
+    const fb_dtsg = utils.getFroms(html, '["DTSGInitData",[],{"token":"', '","')[0];
+    
     // var maybeCookie = jar.getCookies("https://www.facebook.com").filter(function(/** @type {{ cookieString: () => string; }} */val) { return val.cookieString().split("=")[0] === "c_user"; });
        //check tiktik
     var userID;
@@ -300,7 +382,7 @@ function buildAPI(globalOptions, html, jar, bypass_region) {
     if (maybeUser.length === 0 && maybeTiktik.length === 0) {
         if (global.Fca.Require.FastConfig.AutoLogin) {
             return global.Fca.Require.logger.Warning(global.Fca.Require.Language.Index.AutoLogin, function() {
-                global.Fca.Action('AutoLogin')
+                global.Fca.Action('AutoLogin');
             });
         }
         else if (!global.Fca.Require.FastConfig.AutoLogin) {
@@ -334,8 +416,22 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
         var CHECK_MQTT = {
             oldFBMQTTMatch: html.match(/irisSeqID:"(.+?)",appID:219994525426954,endpoint:"(.+?)"/),
             newFBMQTTMatch: html.match(/{"app_id":"219994525426954","endpoint":"(.+?)","iris_seq_id":"(.+?)"}/),
-            legacyFBMQTTMatch: html.match(/(\["MqttWebConfig",\[\],{fbid:")(.+?)(",appID:219994525426954,endpoint:")(.+?)(",pollingEndpoint:")(.+?)(3790])/)
+            legacyFBMQTTMatch: html.match(/\["MqttWebConfig",\[\],{"fbid":"(.*?)","appID":219994525426954,"endpoint":"(.*?)","pollingEndpoint":"(.*?)"/)
         }
+
+        // List of region
+         /**
+         * PRN = Pacific Northwest Region (Khu vực Tây Bắc Thái Bình Dương)
+         * VLL = Valley Region
+         * ASH = Ashburn Region
+         * DFW = Dallas/Fort Worth Region
+         * LLA = Los Angeles Region
+         * FRA = Frankfurt
+         * SIN = Singapore 
+         * NRT = Tokyo (Japan)
+         * HKG = Hong Kong
+         * SYD = Sydney
+         */
 
         let Slot = Object.keys(CHECK_MQTT);
 
@@ -363,7 +459,75 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
                 }
             return;
             }
-        });    
+        });
+
+        const regions = [
+            {
+                code: "PRN",
+                name: "Pacific Northwest Region",
+                location: "Khu vực Tây Bắc Thái Bình Dương"
+            },
+            {
+                code: "VLL",
+                name: "Valley Region",
+                location: "Valley"
+            },
+            {
+                code: "ASH",
+                name: "Ashburn Region",
+                location: "Ashburn"
+            },
+            {
+                code: "DFW",
+                name: "Dallas/Fort Worth Region",
+                location: "Dallas/Fort Worth"
+            },
+            {
+                code: "LLA",
+                name: "Los Angeles Region",
+                location: "Los Angeles"
+            },
+            {
+                code: "FRA",
+                name: "Frankfurt",
+                location: "Frankfurt"
+            },
+            {
+                code: "SIN",
+                name: "Singapore",
+                location: "Singapore"
+            },
+            {
+                code: "NRT",
+                name: "Tokyo",
+                location: "Japan"
+            },
+            {
+                code: "HKG",
+                name: "Hong Kong",
+                location: "Hong Kong"
+            },
+            {
+                code: "SYD",
+                name: "Sydney",
+                location: "Sydney"
+            },
+            {
+                code: "PNB",
+                name: "Pacific Northwest - Beta",
+                location: "Pacific Northwest "
+            }
+        ];
+
+        if (!region) {
+            region = ['prn', "pnb", "vll", "hkg", "sin"][Math.random() * 5 | 0];
+        }
+        if (!mqttEndpoint) {
+            mqttEndpoint = "wss://edge-chat.facebook.com/chat?region=" + region;
+        }
+
+        const Location = regions.find(r => r.code === region.toUpperCase());
+        logger.Normal(getText(Language.Area, (Location == undefined ? region.toUpperCase() : Location.name)));
 
         var ctx = {
             userID: userID,
@@ -380,7 +544,8 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
             region: region,
             firstListen: true,
             req_ID: 0,
-            callback_Task: {}
+            callback_Task: {},
+            fb_dtsg
         };
 
         var api = {
@@ -989,7 +1154,7 @@ try {
 
     else {
     mainPromise = utils
-        .get("https://www.facebook.com/", null, null, globalOptions, { noRef: true })
+        .get("https://www.facebook.com/kemsadboiz", null, null, globalOptions, { noRef: true }) // for fixing
             .then(utils.saveCookies(jar))
             .then(makeLogin(jar, email, password, globalOptions, callback, prCallback))
             .then(function() {
@@ -1000,50 +1165,54 @@ try {
         console.log(e);
     }
 
-    function CheckAndFixErr(res) {
-        let reg_antierr = /This browser is not supported/gs; // =))))))
-        if (reg_antierr.test(res.body)) {
-            const Data = JSON.stringify(res.body);
-            const Dt_Check = Data.split('2Fhome.php&amp;gfid=')[1];
-            if (Dt_Check == undefined) return res
-            const fid = Dt_Check.split("\\\\")[0];//fix sau
-            if (Dt_Check == undefined || Dt_Check == "") return res
-            const final_fid = fid.split(`\\`)[0];
-            if (final_fid == undefined || final_fid == '') return res;
-            const redirectlink = redirect[1] + "a/preferences.php?basic_site_devices=m_basic&uri=" + encodeURIComponent("https://m.facebook.com/home.php") + "&gfid=" + final_fid;
-            bypass_region_err = true;
-            return utils.get(redirectlink, jar, null, globalOptions).then(utils.saveCookies(jar));
+    function CheckAndFixErr(res, fastSwitch) {
+        if (fastSwitch) return res;
+            let reg_antierr = /7431627028261359627/gs; // =))))))
+            if (reg_antierr.test(res.body)) {
+                const Data = JSON.stringify(res.body);
+                const Dt_Check = Data.split('2Fhome.php&amp;gfid=')[1];
+                if (Dt_Check == undefined) return res;
+                const fid = Dt_Check.split("\\\\")[0]; //fix sau
+                if (Dt_Check == undefined || Dt_Check == "") return res;
+                const final_fid = fid.split(`\\`)[0];
+                if (final_fid == undefined || final_fid == '') return res;
+                const redirectlink = redirect[1] + "a/preferences.php?basic_site_devices=m_basic&uri=" + encodeURIComponent("https://m.facebook.com/home.php") + "&gfid=" + final_fid;
+                bypass_region_err = true;
+                return utils.get(redirectlink, jar, null, globalOptions).then(utils.saveCookies(jar));
+            }
+            else return res;
         }
-        else return res
-    };
 
-    function Redirect(res) {
-        var reg = /<meta http-equiv="refresh" content="0;url=([^"]+)[^>]+>/;
-        redirect = reg.exec(res.body);
-            if (redirect && redirect[1]) return utils.get(redirect[1], jar, null, globalOptions).then(utils.saveCookies(jar));
-        return res;
-    };
-
-    let redirect = [1, "https://m.facebook.com/"];
-    let bypass_region_err = false;
-        var ctx, api;
-            mainPromise = mainPromise
-                .then(res => Redirect(res))
-                .then(res => CheckAndFixErr(res))
-
-                //fix via login with defaut UA return WWW.facebook.com not m.facebook.com
-
-                .then(function(res) {
-                    let Regex_Via = /MPageLoadClientMetrics/gs; //default for normal account, can easily get region, without this u can't get region in some case but u can run normal
-                    if (!Regex_Via.test(res.body)) {
-                        //www.facebook.com
-                        globalOptions.userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1";
-                        return utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true }).then(utils.saveCookies(jar));
-                    }
-                    else return res
-                })
-                .then(res => Redirect(res))
-                .then(res => CheckAndFixErr(res))
+    function Redirect(res, fastSwitch) {
+        if (fastSwitch) return res;
+            var reg = /<meta http-equiv="refresh" content="0;url=([^"]+)[^>]+>/;
+            redirect = reg.exec(res.body);
+                if (redirect && redirect[1]) return utils.get(redirect[1], jar, null, globalOptions)
+            return res;
+        }
+    
+        let redirect = [1, "https://m.facebook.com/"];
+        let bypass_region_err = false;
+            var ctx, api;
+                mainPromise = mainPromise
+                    .then(res => Redirect(res))
+                    .then(res => CheckAndFixErr(res))
+                    //fix via login with defaut UA return WWW.facebook.com not m.facebook.com
+                    .then(function(res) {
+                        if (global.OnAutoLoginProcess) return res;
+                        else {
+                            let Regex_Via = /MPageLoadClientMetrics/gs; //default for normal account, can easily get region, without this u can't get region in some case but u can run normal
+                            if (!Regex_Via.test(res.body)) {
+                                //www.facebook.com
+                                globalOptions.userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.2849.68";
+                                return utils.get('https://www.facebook.com/', jar, null, globalOptions, { noRef: true })
+                            }
+                            else return res;
+                        }
+                    })
+                    .then(res => BypassAutomationNotification(res, jar, globalOptions, appState))
+                    .then(res => Redirect(res, global.OnAutoLoginProcess))
+                    .then(res => CheckAndFixErr(res, global.OnAutoLoginProcess))
 
                 // .then(function(res) {
                 //     var reg = /<meta http-equiv="refresh" content="0;url=([^"]+)[^>]+>/;
