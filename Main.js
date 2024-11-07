@@ -430,6 +430,7 @@ else userID = maybeUser[0].cookieString().split("=")[1].toString();
          * NRT = Tokyo (Japan)
          * HKG = Hong Kong
          * SYD = Sydney
+         * EAG = East Ashburn Region (not support)
          */
 
         let Slot = Object.keys(CHECK_MQTT);

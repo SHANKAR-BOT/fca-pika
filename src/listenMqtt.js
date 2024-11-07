@@ -210,9 +210,9 @@ function listenMqtt(defaultFuncs, api, ctx, globalCallback) {
         warningThreshold: 0.7,
         releaseThreshold: 0.8,
         maxThreshold: 0.9,
-        interval: 60 * 1000,
+        interval: 300 * 1000,
         logLevel: 'warn',
-        logFile: path.join(process.cwd(), 'Horizon_Database' ,'memory.log'),
+        logFile: path.join(process.cwd(), 'Horizon_Database', 'memory.log'),
         smartReleaseEnabled: true,
         allowLog: (global.Fca.Require.FastConfig.AntiStuckAndMemoryLeak.LogFile.Use || false)
       };
@@ -509,8 +509,13 @@ function parseDelta(defaultFuncs, api, ctx, globalCallback, {
             senderID: delta.deltaMessageReply.message.messageMetadata.actorFbId.toString(),
             attachments: ( delta.deltaMessageReply.message.attachments || [] )
               .map((att) => {
-                const mercury = JSON.parse(att.mercuryJSON);
-                Object.assign(att, mercury);
+                let mercury;
+                try {
+                  const mercury = JSON.parse(att.mercuryJSON);
+                  Object.assign(att, mercury);
+              } catch (ex) {
+                mercury = {};
+              }
                 return att;
               })
               .map((att) => {

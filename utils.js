@@ -2426,7 +2426,6 @@ function getFrom(str, startToken, endToken) {
 };
 
 function getFroms(str, startToken, endToken) {
-    //advanced search by kanzuuuuuuuuuu 
     let results = [];
     let currentIndex = 0;
     
