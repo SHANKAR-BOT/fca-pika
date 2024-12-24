@@ -23,12 +23,12 @@ global.Fca = new Object({
     },
     Data: new Object({
         ObjFastConfig: {
-            "Language": "vi",
+            "Language": "en",
             "PreKey": "",
             "AutoUpdate": true,
             "CustomFont": false, /** @Kem */
             "MainColor": "#00FFFF",
-            "MainName": "[ META-HZI ]",
+            "MainName": "[ FCA-SHANKAR ]",
             "Uptime": false,
             "Config": "default",
             "DevMode": false,
